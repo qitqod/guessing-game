@@ -98,7 +98,6 @@ def stats_page():
             use_container_width=True,
         )
 
-        st.write(pd.DataFrame(st.session_state.guess_history))
     else:
         # Display message if no game data is available
         st.warning("No game data available yet! Play a round to start tracking your stats.")
