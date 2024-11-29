@@ -63,33 +63,34 @@ def evaluate_guess(city_details, user_guess):
     """
     # Construct the prompt for the OpenAI model
     prompt = f"""
-Reference City: {city_details['target_capital']['name']}
-Correct City: {city_details['guess_capital']['name']}
-User Guess: {user_guess}
+        Reference City: {city_details['target_capital']['name']}
+        Correct City: {city_details['guess_capital']['name']}
+        User Guess: {user_guess}
 
-Evaluate the user's guess following these instructions:
-- Normalize input for comparison: Treat New York the same as new york the same as NEW YORK etc. Uppercase and lowercase dont matter. 
-- Does the guess match the target_capital? 
-- Is the guess a capital of a country?
-- Is the guess an existing recognized city? 
-- If the city does not exist, return null.
-- If the city is a valid city (existing), then calculate the distance in kilometers from the target_city to the city the user guessed.
-- Give your comment on how well the player has been guessing, taking into account these criteria and your short feedback.
-- Provide the output in this JSON format:
-{{
-    "guess_correct": <true/false>,
-    "is_capital": <true/false>,
-    "valid_city": <true/false>,
-    "distance_to_guess": <distance or null>
-    "comment": "<string>"
-}}
-- Use 'null' for missing or inapplicable values for 'distance_to_guess'.
-- The 'comment' field should always be a string, even if empty (e.g., "").
-- All boolean values must be explicitly true or false.
-- When checking if a city is a capital, refer to its official status globally. And also, the capitalization of the letters do not play a role, for example, berlin is a capital, as well as Berlin. That holds true for cities as well. And if the given input provided can either be a capital city, non-capital city, an object, a name etc then check if it holds true in this order.
-- If input is not a city than do not count the distance off
-- If the user sends and input which is not a valid string (empty input, digits, emojis etc) - tell them that it is not correct and they said something funny and count it as a wrong guess"
-"""
+        Evaluate the user's guess following these instructions:
+        - Normalize input for comparison: Treat New York the same as new york the same as NEW YORK etc. Uppercase and lowercase dont matter. 
+        - Does the guess match the target_capital? 
+        - Is the guess a capital of a country?
+        - Is the guess an existing recognized city? 
+        - If the city does not exist, return null.
+        - If the city is a valid city (existing), then calculate the distance in kilometers from the target_city to the city the user guessed.
+        - Give your comment on how well the player has been guessing, taking into account these criteria and your short feedback.
+        - Never tell in which country the city is!
+        - Provide the output in this JSON format:
+        {{
+            "guess_correct": <true/false>,
+            "is_capital": <true/false>,
+            "valid_city": <true/false>,
+            "distance_to_guess": <distance or null>
+            "comment": "<string>"
+        }}
+        - Use 'null' for missing or inapplicable values for 'distance_to_guess'.
+        - The 'comment' field should always be a string, even if empty (e.g., "").
+        - All boolean values must be explicitly true or false.
+        - When checking if a city is a capital, refer to its official status globally. And also, the capitalization of the letters do not play a role, for example, berlin is a capital, as well as Berlin. That holds true for cities as well. And if the given input provided can either be a capital city, non-capital city, an object, a name etc then check if it holds true in this order.
+        - If input is not a city than do not count the distance off
+        - If the user sends and input which is not a valid string (empty input, digits, emojis etc) - tell them that it is not correct and they said something funny and count it as a wrong guess"
+        """
 
     try:
         # Use the chat completion API
@@ -99,7 +100,7 @@ Evaluate the user's guess following these instructions:
                 {"role": "system", "content": "You are a geography and distance expert that evaluates accurately if the user guess is a real city,  a capital, and how far is it from the  capital."},
                 {"role": "user", "content": prompt},
             ],
-            temperature=1.2  # Set temperature for deterministic responses
+            temperature = 0.2  # Set temperature for deterministic responses
         )
         # Extract and parse the response content
         content = response.choices[0].message.content.strip()
