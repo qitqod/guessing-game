@@ -167,10 +167,15 @@ else:
         distance = current_data["distance_km"]
         st.write(f"### Round {st.session_state.round_number}: Guess which capital is {distance} km away from {reference_city}, {reference_country}.")
         user_guess = st.text_input("Enter your guess:").strip()
-        if st.button("Submit"):
-            evaluate_guess_and_provide_feedback(user_guess)
+        if user_guess and not user_guess.isalpha():
+            st.error("Invalid guess. Please enter a valid string.")
+        elif not user_guess:
+            st.warning("Guess cannot be empty.")
         else:
-            st.warning("Please enter a valid guess!")
+            if st.button("Submit"):
+                evaluate_guess_and_provide_feedback(user_guess)
+            else:
+                st.warning("Please enter a valid guess!")
 
     display_tracking_variables()
 
