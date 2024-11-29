@@ -5,7 +5,6 @@ from assets.utils import fetch_capitals, evaluate_guess, update_game_data, displ
 # --- PAGE CONFIGURATION ---
 # Configure the Streamlit page with title, icon, and layout
 st.set_page_config(page_title="Guess the Capital", page_icon="assets/favicon.png")
-round_counter = 0
 
 # --- INITIALIZE SESSION STATE ---
 # Initialize session state variables with default values to track game progress and statistics
@@ -26,7 +25,7 @@ def initialize_session_state():
         "hint_index": 0,  # Tracks which hint to show next
         "round_complete": False,  # Indicates if the round is complete
         "play_again_triggered": False,  # Tracks if "play again" was clicked
-        #"round_index": 0,  # Tracks round order programmatically
+        "round_index": 0,  # Tracks round order programmatically
         "average_guesses_previous": 0,  # Avg guesses from previous rounds
         "average_guesses_current": 0,  # Current avg guesses
         "delta_guesses": 0,  # Change in avg guesses
@@ -51,8 +50,7 @@ def start_new_round():
         st.session_state.round_complete = False
         st.session_state.hint_index = 0
         st.session_state.play_again_triggered = False
-        # st.session_state.round_index += 1  # Increment round index for tracking
-        round_counter += 1
+        st.session_state.round_index += 1  # Increment round index for tracking
         target = st.session_state.current_round["guess_capital"]
         st.session_state.hints = target["fun_facts"] + [f"It is in {target['country']}"]
 
@@ -109,8 +107,7 @@ def evaluate_guess_and_provide_feedback(guess):
             "Guess": guess,
             "Correct": evaluation["guess_correct"],
             "Distance": evaluation.get("distance_to_guess", "N/A"),
-            "Capital": evaluation["is_capital"],
-            "Comment": evaluation["comment"]
+            "Capital": evaluation["is_capital"]
         })
 
         # Update stats and provide next hint or end round
@@ -120,7 +117,7 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Move to the next round if completed
         if st.session_state.round_complete:
-            st.session_state.round_number = round_counter + 1
+            st.session_state.round_number += 1
 
 # --- UPDATE REAL-TIME STATS ---
 # Updates session statistics dynamically during the game
@@ -175,7 +172,7 @@ else:
         reference_city = current_data["target_capital"]["name"]
         reference_country = current_data["target_capital"]["country"]
         distance = current_data["distance_km"]
-        st.write(f"### Round {round_counter}: Guess which capital is {distance} km away from {reference_city}, {reference_country}.")
+        st.write(f"### Round {st.session_state.round_number}: Guess which capital is {distance} km away from {reference_city}, {reference_country}.")
         user_guess = st.text_input("Enter your guess:").strip()
 
         if st.button("Submit"):
