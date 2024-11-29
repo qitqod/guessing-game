@@ -89,9 +89,10 @@ def evaluate_guess_and_provide_feedback(guess):
             else:
                 # Correct guess
                 st.success("Congrats! That's correct.")
-                st.balloons()
                 st.session_state.round_complete = True
                 st.rerun()
+                st.balloons()
+
 
         # Add guess details to guess history
         st.session_state.guess_history.append({
