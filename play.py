@@ -136,7 +136,7 @@ def update_realtime_stats():
 
 # --- DISPLAY TRACKING VARIABLES ---
 # Displays key game statistics for the current session
-def display_tracking_variables(evaluation):
+def display_tracking_variables():
     st.write("### Tracking Variables")
     st.write({
         "Total Guesses": st.session_state.total_guesses,
@@ -186,7 +186,7 @@ else:
         else:
             st.warning("Please enter a valid guess.")
 
-    display_tracking_variables(evaluation)
+    display_tracking_variables()
 
 # --- DISPLAY CURRENT ROUND DATA ---
 # Shows data for the ongoing round if the game has started
