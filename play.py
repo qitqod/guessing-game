@@ -88,6 +88,13 @@ def evaluate_guess_and_provide_feedback(guess):
                     st.warning("Distance could not be calculated.")
             else:
                 # Correct guess
+                st.session_state.guess_history.append({
+                    "Round": st.session_state.round_number,
+                    "Guess": guess,
+                    "Correct": evaluation["guess_correct"],
+                    "Distance": evaluation.get("distance_to_guess", "N/A"),
+                    "Capital": evaluation["is_capital"]
+                })
                 st.success("Congrats! That's correct.")
                 st.session_state.round_complete = True
                 st.rerun()
