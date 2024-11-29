@@ -71,11 +71,11 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Handle invalid city or incorrect guess
         if not evaluation["is_capital"] or not evaluation["valid_city"]:
-            st.error(f"'{guess}' is not a capital! 20,000 km added to your distance off.")
+            st.error(f"'{guess}' is not a capital.")
             st.session_state.non_capitals_this_round += 1
             st.session_state.total_non_capitals += 1
             st.session_state.distance_off_this_round += 20000
-            st.session_state.total_distance_off += 20000
+            st.session_state.total_distance_off += 0
         else:
             # Valid city but incorrect guess
             if not evaluation["guess_correct"]:
@@ -88,6 +88,13 @@ def evaluate_guess_and_provide_feedback(guess):
                     st.warning("Distance could not be calculated.")
             else:
                 # Correct guess
+                st.session_state.guess_history.append({
+                    "Round": st.session_state.round_number,
+                    "Guess": guess,
+                    "Correct": evaluation["guess_correct"],
+                    "Distance": evaluation.get("distance_to_guess", "N/A"),
+                    "Capital": evaluation["is_capital"]
+                })
                 st.success("Congrats! That's correct.")
                 st.session_state.round_complete = True
                 st.rerun()
@@ -147,7 +154,7 @@ def display_tracking_variables():
 # Defines the main game interface
 if not st.session_state.start_playing_clicked:
     st.title("Welcome to Guess the Capital!")
-    st.write("Try to guess the target capital based on its distance from a reference city.")
+    st.write("Try to guess the capital x km away from the city we give you!")
     st.button("Start Playing", on_click=start_playing)
 else:
     if st.session_state.round_complete:
@@ -167,10 +174,16 @@ else:
         distance = current_data["distance_km"]
         st.write(f"### Round {st.session_state.round_number}: Guess which capital is {distance} km away from {reference_city}, {reference_country}.")
         user_guess = st.text_input("Enter your guess:").strip()
+
         if st.button("Submit"):
-            evaluate_guess_and_provide_feedback(user_guess)
+            if user_guess and not user_guess.isalpha():
+                st.error("Invalid guess. Please enter a valid string.")
+            elif not user_guess:
+                st.warning("Guess cannot be empty.")
+            else:
+                evaluate_guess_and_provide_feedback(user_guess)
         else:
-            st.warning("Please enter a valid guess!")
+            st.warning("Please enter a valid guess.")
 
     display_tracking_variables()
 

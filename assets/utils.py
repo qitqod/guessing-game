@@ -87,6 +87,7 @@ Evaluate the user's guess following these instructions:
 - The 'comment' field should always be a string, even if empty (e.g., "").
 - All boolean values must be explicitly true or false.
 - When checking if a city is a capital, refer to its official status globally. And also, the capitalization of the letters do not play a role, for example, berlin is a capital, as well as Berlin. That holds true for cities as well. And if the given input provided can either be a capital, non-capital city, an object, a name etc then check if it hold true in this order.
+- If the user sends and input which is not a valid string (empty input, digits, emojis etc) - tell them that it is not correct and they said something funny and count it as a wrong guess"
 """
 
     try:
