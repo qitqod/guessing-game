@@ -58,7 +58,7 @@ def stats_page():
 
         # --- CHARTS ---
 
-        st.title("##How did you do? Let's review your stats.")
+        st.title("###How did you do? Let's review your stats.")
 
         #Bar Chart 1: number of guesses per round
         st.bar_chart(
