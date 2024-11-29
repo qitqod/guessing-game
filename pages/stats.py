@@ -97,6 +97,7 @@ def stats_page():
             games_data.drop(columns=["Round Number", "Round Description"], axis=1, errors="ignore"),
             use_container_width=True,
         )
+        st.rerun()
 
     else:
         # Display message if no game data is available
