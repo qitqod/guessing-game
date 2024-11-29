@@ -124,7 +124,7 @@ def evaluate_guess_and_provide_feedback(guess):
 def update_realtime_stats():
     st.session_state.average_guesses_previous = st.session_state.average_guesses_current
     if st.session_state.game_data:
-        st.session_state.average_guesses_current = st.table(st.session_state.game_data)["Guesses"].mean()
+        st.session_state.average_guesses_current = pd.DataFrame(st.session_state.game_data)["Guesses"].mean()
     else:
         st.session_state.average_guesses_current = st.session_state.guesses_this_round
     st.session_state.delta_guesses = st.session_state.average_guesses_current - st.session_state.average_guesses_previous
@@ -163,7 +163,7 @@ else:
         st.write(f"Non-Capitals Named: {st.session_state.non_capitals_this_round}")
         st.write(f"Distance Off This Round: {st.session_state.distance_off_this_round}")
         st.write("Guess History:")
-        st.write(st.table(st.session_state.guess_history))
+        st.write(pd.DataFrame(st.session_state.guess_history))
         st.write(f"Comment: {st.session_state.guess_history[-1]["Comment"]}")
         if st.button("Play Again"):
             start_new_round()
