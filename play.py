@@ -71,7 +71,8 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Handle invalid city or incorrect guess
         if not evaluation["is_capital"] or not evaluation["valid_city"]:
-            st.error(f"'{guess}' is not a capital.")
+            #st.error(f"'{guess}' is not a capital.")
+            st.error("Try again!")
             st.session_state.non_capitals_this_round += 1
             st.session_state.total_non_capitals += 1
             st.session_state.total_distance_off += 0
@@ -82,7 +83,8 @@ def evaluate_guess_and_provide_feedback(guess):
                 if isinstance(distance, (int, float)):
                     st.session_state.distance_off_this_round += distance
                     st.session_state.total_distance_off += distance
-                    st.warning(f"You are {distance} km off.")
+                    st.error("Try again!")
+                    #st.warning(f"You are {distance} km off.")
                 else:
                     st.warning("Distance could not be calculated.")
             else:

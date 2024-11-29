@@ -38,7 +38,7 @@ def fetch_capitals():
                 {"role": "system", "content": "You are a fact and geography expert and provide the requested data accurately and you don't favor popular capitals over others. The probability is even across all capitals. You do not reveal the name nor the country of the guess capital in the fun facts; you only reveal them in their appropriate field, which is guess_capital name and guess_capital country."},
                 {"role": "user", "content": prompt},
             ],
-            temperature=  0.7  # for some randomness
+            temperature=  1.2  # for some randomness
         )
         # Extract and parse the response content
         content = response.choices[0].message.content.strip()
@@ -99,7 +99,7 @@ Evaluate the user's guess following these instructions:
                 {"role": "system", "content": "You are a geography and distance expert that evaluates accurately if the user guess is a real city,  a capital, and how far is it from the  capital."},
                 {"role": "user", "content": prompt},
             ],
-            temperature=0.2  # Set temperature for deterministic responses
+            temperature=1.2  # Set temperature for deterministic responses
         )
         # Extract and parse the response content
         content = response.choices[0].message.content.strip()
