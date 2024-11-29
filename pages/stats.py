@@ -58,7 +58,7 @@ def stats_page():
 
         # --- CHARTS ---
 
-        st.title("How did you do? Let's review your stats.")
+        st.title("##How did you do? Let's review your stats.")
 
         #Bar Chart 1: number of guesses per round
         st.bar_chart(
@@ -83,7 +83,7 @@ def stats_page():
          # --- QUALITY METRICS ---
 
         # Display metrics for average guesses, distance off, and total non-capitals
-        st.write("Did you improve?")
+        st.write("###Did you improve?")
         col1, col2, col3 = st.columns(3)
         col1.metric("Avg Nb of Guesses", f"{avg_guesses_current:.2f}", f"{delta_guesses:+.2f}", delta_color="inverse" if delta_guesses > 0 else "normal")
         col2.metric("Avg Distance Off (km)", f"{avg_distance_current:.2f}", f"{delta_distance:+.2f}", delta_color="inverse" if delta_distance > 0 else "normal")
