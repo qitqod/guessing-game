@@ -4,7 +4,7 @@ import streamlit as st
 import toml
 
 # Initialize the OpenAI client with the API key from the secrets file
-api_key = st.secrets["api_key"]
+api_key = st.secrets["openai"]["api_key"]["api_key"]
 client = OpenAI(api_key=api_key)
 
 # fetch function that will get the requested data from the gpt-3.5-turbo model and provide it in JSON format
