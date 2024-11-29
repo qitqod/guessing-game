@@ -93,8 +93,10 @@ def evaluate_guess_and_provide_feedback(guess):
                     "Guess": guess,
                     "Correct": evaluation["guess_correct"],
                     "Distance": evaluation.get("distance_to_guess", "N/A"),
-                    "Capital": evaluation["is_capital"]
+                    "Capital": evaluation["is_capital"],
+                    "Comment": evaluation["comment"]
                 })
+                update_realtime_stats()
                 st.success("Congrats! That's correct.")
                 st.session_state.round_complete = True
                 st.rerun()
@@ -107,7 +109,8 @@ def evaluate_guess_and_provide_feedback(guess):
             "Guess": guess,
             "Correct": evaluation["guess_correct"],
             "Distance": evaluation.get("distance_to_guess", "N/A"),
-            "Capital": evaluation["is_capital"]
+            "Capital": evaluation["is_capital"],
+            "Comment": evaluation["comment"]
         })
 
         # Update stats and provide next hint or end round
