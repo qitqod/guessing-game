@@ -158,6 +158,7 @@ else:
         st.write(pd.DataFrame(st.session_state.guess_history))
         if st.button("Play Again"):
             start_new_round()
+            st.rerun()
     else:
         current_data = st.session_state.current_round
         reference_city = current_data["target_capital"]["name"]
