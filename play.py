@@ -99,7 +99,6 @@ def evaluate_guess_and_provide_feedback(guess):
                 st.success("Congrats! That's correct.")
                 st.session_state.round_complete = True
                 st.rerun()
-                update_realtime_stats()
 
 
         # Add guess details to guess history
@@ -166,11 +165,9 @@ else:
         st.write("Guess History:")
         st.write(pd.DataFrame(st.session_state.guess_history))
         st.write(f"Comment: {st.session_state.guess_history[-1]["Comment"]}")
-        update_realtime_stats()
         if st.button("Play Again and Update Stats"):
             start_new_round()
             st.rerun()
-            update_realtime_stats()
     else:
         current_data = st.session_state.current_round
         reference_city = current_data["target_capital"]["name"]
