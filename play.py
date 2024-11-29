@@ -163,9 +163,9 @@ else:
         st.write(f"Non-Capitals Named: {st.session_state.non_capitals_this_round}")
         st.write(f"Distance Off This Round: {st.session_state.distance_off_this_round}")
         st.write("Guess History:")
-        st.write(pd.DataFrame(st.session_state.guess_history))
+        st.write(pd.DataFrame(st.session_state.guess_history[:3]))
         st.write(st.session_state.guess_history)
-        st.write(f"Comment: {st.session_state.guess_history[1]["Comment"]}")
+        st.write(f"Comment: {st.session_state.guess_history[-1]["Comment"]}")
         if st.button("Play Again"):
             start_new_round()
             st.rerun()
