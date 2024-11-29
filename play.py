@@ -74,7 +74,6 @@ def evaluate_guess_and_provide_feedback(guess):
             st.error(f"'{guess}' is not a capital.")
             st.session_state.non_capitals_this_round += 1
             st.session_state.total_non_capitals += 1
-            st.session_state.distance_off_this_round += 20000
             st.session_state.total_distance_off += 0
         else:
             # Valid city but incorrect guess
@@ -89,12 +88,12 @@ def evaluate_guess_and_provide_feedback(guess):
             else:
                 # Correct guess
                 st.session_state.guess_history.append({
-                    #"Round": st.session_state.round_number,
                     "Guess": guess,
                     "Correct": evaluation["guess_correct"],
                     "Distance": evaluation.get("distance_to_guess", "N/A"),
                     "Capital": evaluation["is_capital"],
                     "Comment": evaluation["comment"]
+
                 })
                 update_realtime_stats()
                 st.success("Congrats! That's correct.")
@@ -105,12 +104,10 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Add guess details to guess history
         st.session_state.guess_history.append({
-            #"Round": st.session_state.round_number,
             "Guess": guess,
             "Correct": evaluation["guess_correct"],
             "Distance": evaluation.get("distance_to_guess", "N/A"),
-            "Capital": evaluation["is_capital"],
-            "Comment": evaluation["comment"]
+            "Capital": evaluation["is_capital"]
         })
 
         # Update stats and provide next hint or end round
@@ -139,7 +136,7 @@ def update_realtime_stats():
 
 # --- DISPLAY TRACKING VARIABLES ---
 # Displays key game statistics for the current session
-def display_tracking_variables():
+def display_tracking_variables(evaluation):
     st.write("### Tracking Variables")
     st.write({
         "Total Guesses": st.session_state.total_guesses,
@@ -166,7 +163,8 @@ else:
         st.write(f"Non-Capitals Named: {st.session_state.non_capitals_this_round}")
         st.write(f"Distance Off This Round: {st.session_state.distance_off_this_round}")
         st.write("Guess History:")
-        st.write(pd.DataFrame(st.session_state.guess_history))
+        st.write(pd.DataFrame(st.session_state.guess_history[:4]))
+        st.write(f"Comment: {st.session_state.guess_history["comment"]}")
         if st.button("Play Again"):
             start_new_round()
             st.rerun()
@@ -188,7 +186,7 @@ else:
         else:
             st.warning("Please enter a valid guess.")
 
-    display_tracking_variables()
+    display_tracking_variables(evaluation)
 
 # --- DISPLAY CURRENT ROUND DATA ---
 # Shows data for the ongoing round if the game has started
