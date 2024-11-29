@@ -71,11 +71,11 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Handle invalid city or incorrect guess
         if not evaluation["is_capital"] or not evaluation["valid_city"]:
-            st.error(f"'{guess}' is not a capital! 20,000 km added to your distance off.")
+            st.error(f"'{guess}' is not a capital.")
             st.session_state.non_capitals_this_round += 1
             st.session_state.total_non_capitals += 1
             st.session_state.distance_off_this_round += 20000
-            st.session_state.total_distance_off += 20000
+            st.session_state.total_distance_off += 0
         else:
             # Valid city but incorrect guess
             if not evaluation["guess_correct"]:
