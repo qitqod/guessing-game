@@ -165,7 +165,7 @@ else:
         st.write("Guess History:")
         st.write(pd.DataFrame(st.session_state.guess_history))
         st.write(st.session_state.guess_history)
-        #st.write(f"Comment: {st.session_state.guess_history["Comment"]}")
+        st.write(f"Comment: {st.session_state.guess_history[1]["Comment"]}")
         if st.button("Play Again"):
             start_new_round()
             st.rerun()
