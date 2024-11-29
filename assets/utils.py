@@ -48,9 +48,8 @@ def fetch_capitals():
     except Exception as e:
         return f"An error occurred: {e}"
 
+
 # Function that evaluates user input and compares it using GPT-3.5
-
-
 def evaluate_guess(city_details, user_guess):
     """
     Evaluate the user's guess in the context of the city game.
@@ -75,13 +74,18 @@ Evaluate the user's guess following these instructions:
 - Is the guess an existing recognized city? 
 - If the city does not exist, return null.
 - If the city is a valid city (existing), then calculate the distance in kilometers from the target_city to the city the user guessed.
+- Give your comment on how well the player has been guessing, taking into account these criteria and your short feedback.
 - Provide the output in this JSON format:
 {{
     "guess_correct": <true/false>,
     "is_capital": <true/false>,
     "valid_city": <true/false>,
     "distance_to_guess": <distance or null>
+    "comment": "<string>"
 }}
+- Use 'null' for missing or inapplicable values for 'distance_to_guess'.
+- The 'comment' field should always be a string, even if empty (e.g., "").
+- All boolean values must be explicitly true or false.
 - When checking if a city is a capital, refer to its official status globally. And also, the capitalization of the letters do not play a role, for example, berlin is a capital, as well as Berlin. That holds true for cities as well. 
 """
 
