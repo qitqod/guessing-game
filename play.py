@@ -163,8 +163,7 @@ else:
         st.write(f"Non-Capitals Named: {st.session_state.non_capitals_this_round}")
         st.write(f"Distance Off This Round: {st.session_state.distance_off_this_round}")
         st.write("Guess History:")
-        st.write(pd.DataFrame(st.session_state.guess_history[:3]))
-        st.write(st.session_state.guess_history)
+        st.write(pd.DataFrame(st.session_state.guess_history))
         st.write(f"Comment: {st.session_state.guess_history[-1]["Comment"]}")
         if st.button("Play Again"):
             start_new_round()
@@ -178,7 +177,7 @@ else:
         user_guess = st.text_input("Enter your guess:").strip()
 
         if st.button("Submit"):
-            if user_guess and not user_guess.isalpha():
+            if user_guess and not user_guess.replace(" ", "").isalpha():
                 st.error("Invalid guess. Please enter a valid word.")
             elif not user_guess:
                 st.warning("Guess cannot be empty.")

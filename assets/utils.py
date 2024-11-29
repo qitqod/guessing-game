@@ -130,10 +130,10 @@ def update_game_data():
 
         
 def display_hint():
-    if st.session_state.hint_index < len(st.session_state.hints):
+    # if st.session_state.hint_index < len(st.session_state.hints):
         st.info(f"Hint: {st.session_state.hints[st.session_state.hint_index]}")
         st.session_state.hint_index += 1
-    else:
-        target = st.session_state.current_round["guess_capital"]
-        st.error(f"Round lost! The correct answer was {target['name']}, {target['country']}. Good luck next time!")
-        st.session_state.round_complete = True
+    # else:
+    #     target = st.session_state.current_round["guess_capital"]
+    #     st.error(f"Round lost! The correct answer was {target['name']}, {target['country']}. Good luck next time!")
+    #     st.session_state.round_complete = True
