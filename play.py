@@ -136,7 +136,7 @@ def update_realtime_stats():
         st.session_state.average_far_off = st.session_state.distance_off_this_round
 
 # --- DISPLAY TRACKING VARIABLES ---
-# Displays key game statistics for the current session
+# Displays key game statistics for the current session - for debugging
 def display_tracking_variables():
     st.write("### Tracking Variables")
     st.write({
@@ -189,10 +189,11 @@ else:
         else:
             st.warning("Please enter a valid guess.")
 
-    display_tracking_variables()
+    #display_tracking_variables()
 
 # --- DISPLAY CURRENT ROUND DATA ---
+# used for debugging
 # Shows data for the ongoing round if the game has started
-if st.session_state.start_playing_clicked and st.session_state.current_round:
-    st.write("### Current Round Data")
-    st.json(st.session_state.current_round)
+# if st.session_state.start_playing_clicked and st.session_state.current_round:
+#     st.write("### Current Round Data")
+#     st.json(st.session_state.current_round)
