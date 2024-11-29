@@ -147,7 +147,7 @@ def display_tracking_variables():
 # Defines the main game interface
 if not st.session_state.start_playing_clicked:
     st.title("Welcome to Guess the Capital!")
-    st.write("Try to guess the target capital based on its distance from a reference city.")
+    st.write("Try to guess the capital x km away from the city we give you!")
     st.button("Start Playing", on_click=start_playing)
 else:
     if st.session_state.round_complete:
