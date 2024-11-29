@@ -173,7 +173,7 @@ else:
         reference_city = current_data["target_capital"]["name"]
         reference_country = current_data["target_capital"]["country"]
         distance = current_data["distance_km"]
-        st.write(f"### Round {st.session_state.round_number}: Guess which capital is {distance} km away from {reference_city}, {reference_country}.")
+        st.write(f"### Guess which capital is {distance} km away from {reference_city}, {reference_country}.")
         user_guess = st.text_input("Enter your guess:").strip()
 
         if st.button("Submit"):

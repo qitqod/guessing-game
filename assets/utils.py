@@ -86,7 +86,8 @@ Evaluate the user's guess following these instructions:
 - Use 'null' for missing or inapplicable values for 'distance_to_guess'.
 - The 'comment' field should always be a string, even if empty (e.g., "").
 - All boolean values must be explicitly true or false.
-- When checking if a city is a capital, refer to its official status globally. And also, the capitalization of the letters do not play a role, for example, berlin is a capital, as well as Berlin. That holds true for cities as well. And if the given input provided can either be a capital, non-capital city, an object, a name etc then check if it hold true in this order.
+- When checking if a city is a capital, refer to its official status globally. And also, the capitalization of the letters do not play a role, for example, berlin is a capital, as well as Berlin. That holds true for cities as well. And if the given input provided can either be a capital city, non-capital city, an object, a name etc then check if it holds true in this order.
+- If input is not a city than do not count the distance off
 - If the user sends and input which is not a valid string (empty input, digits, emojis etc) - tell them that it is not correct and they said something funny and count it as a wrong guess"
 """
 
@@ -130,10 +131,6 @@ def update_game_data():
 
         
 def display_hint():
-    # if st.session_state.hint_index < len(st.session_state.hints):
-        st.info(f"Hint: {st.session_state.hints[st.session_state.hint_index]}")
-        st.session_state.hint_index += 1
-    # else:
-    #     target = st.session_state.current_round["guess_capital"]
-    #     st.error(f"Round lost! The correct answer was {target['name']}, {target['country']}. Good luck next time!")
-    #     st.session_state.round_complete = True
+    st.info(f"Hint: {st.session_state.hints[st.session_state.hint_index]}")
+    st.session_state.hint_index += 1
+
