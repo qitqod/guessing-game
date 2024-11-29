@@ -71,7 +71,6 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Handle invalid city or incorrect guess
         if not evaluation["is_capital"] or not evaluation["valid_city"]:
-            #st.error(f"'{guess}' is not a capital.")
             st.error("Try again!")
             st.session_state.non_capitals_this_round += 1
             st.session_state.total_non_capitals += 1
@@ -84,7 +83,6 @@ def evaluate_guess_and_provide_feedback(guess):
                     st.session_state.distance_off_this_round += distance
                     st.session_state.total_distance_off += distance
                     st.error("Try again!")
-                    #st.warning(f"You are {distance} km off.")
                 else:
                     st.warning("Distance could not be calculated.")
             else:
@@ -101,7 +99,6 @@ def evaluate_guess_and_provide_feedback(guess):
                 st.success("Congrats! That's correct.")
                 st.session_state.round_complete = True
                 st.rerun()
-                st.balloons()
 
 
         # Add guess details to guess history
@@ -109,7 +106,8 @@ def evaluate_guess_and_provide_feedback(guess):
             "Guess": guess,
             "Correct": evaluation["guess_correct"],
             "Distance": evaluation.get("distance_to_guess", "N/A"),
-            "Capital": evaluation["is_capital"]
+            "Capital": evaluation["is_capital"],
+            "Comment": evaluation["comment"]
         })
 
         # Update stats and provide next hint or end round
@@ -126,7 +124,7 @@ def evaluate_guess_and_provide_feedback(guess):
 def update_realtime_stats():
     st.session_state.average_guesses_previous = st.session_state.average_guesses_current
     if st.session_state.game_data:
-        st.session_state.average_guesses_current = pd.DataFrame(st.session_state.game_data)["Guesses"].mean()
+        st.session_state.average_guesses_current = st.table(st.session_state.game_data)["Guesses"].mean()
     else:
         st.session_state.average_guesses_current = st.session_state.guesses_this_round
     st.session_state.delta_guesses = st.session_state.average_guesses_current - st.session_state.average_guesses_previous
@@ -165,7 +163,7 @@ else:
         st.write(f"Non-Capitals Named: {st.session_state.non_capitals_this_round}")
         st.write(f"Distance Off This Round: {st.session_state.distance_off_this_round}")
         st.write("Guess History:")
-        st.write(pd.DataFrame(st.session_state.guess_history))
+        st.write(st.table(st.session_state.guess_history))
         st.write(f"Comment: {st.session_state.guess_history[-1]["Comment"]}")
         if st.button("Play Again"):
             start_new_round()
