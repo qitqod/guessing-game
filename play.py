@@ -89,7 +89,7 @@ def evaluate_guess_and_provide_feedback(guess):
             else:
                 # Correct guess
                 st.session_state.guess_history.append({
-                    "Round": st.session_state.round_number,
+                    #"Round": st.session_state.round_number,
                     "Guess": guess,
                     "Correct": evaluation["guess_correct"],
                     "Distance": evaluation.get("distance_to_guess", "N/A"),
@@ -103,7 +103,7 @@ def evaluate_guess_and_provide_feedback(guess):
 
         # Add guess details to guess history
         st.session_state.guess_history.append({
-            "Round": st.session_state.round_number,
+            #"Round": st.session_state.round_number,
             "Guess": guess,
             "Correct": evaluation["guess_correct"],
             "Distance": evaluation.get("distance_to_guess", "N/A"),
