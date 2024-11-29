@@ -55,38 +55,42 @@ def stats_page():
         st.session_state.total_non_capitals = total_non_capitals_current
 
         # --- SUMMARY METRICS ---
+
+        # --- CHARTS ---
+
+        st.title("How did you do? Let's review your stats.")
+
+        #Bar Chart 1: number of guesses per round
+        st.bar_chart(
+            data=games_data,
+            x="Round Description",
+            y="Nb of Guesses",
+            x_label="Cities",
+            y_label="Number of Guesses",
+            use_container_width=False
+        )
+
+        #Bar Chart 2: distance off per round
+        st.bar_chart(
+            data=games_data,
+            x="Round Description",
+            y="Distance Off (km)",
+            x_label="Cities",
+            y_label="Distance off in km / round",
+            use_container_width=False
+        )
+
+         # --- QUALITY METRICS ---
+
         # Display metrics for average guesses, distance off, and total non-capitals
-        st.write("### Game Summary")
+        st.write("Did you improve?")
         col1, col2, col3 = st.columns(3)
         col1.metric("Avg Nb of Guesses", f"{avg_guesses_current:.2f}", f"{delta_guesses:+.2f}", delta_color="inverse" if delta_guesses > 0 else "normal")
         col2.metric("Avg Distance Off (km)", f"{avg_distance_current:.2f}", f"{delta_distance:+.2f}", delta_color="inverse" if delta_distance > 0 else "normal")
         col3.metric("Total Non-Capitals", total_non_capitals_current, f"{delta_non_capitals:+}", delta_color="inverse" if delta_non_capitals > 0 else "normal")
-
-        # --- CHARTS ---
-        st.write("### Performance Over Rounds")
-        chart_col1, chart_col2 = st.columns(2)
-
-        # Chart 1: Bar chart for number of guesses per round
-        with chart_col1:
-            fig1, ax1 = plt.subplots()
-            ax1.bar(games_data["Round Description"], games_data["Nb of Guesses"], color="skyblue", alpha=0.8)
-            ax1.set_title("Nb of Guesses per Round")
-            ax1.set_ylabel("Nb of Guesses")
-            ax1.tick_params(axis="x", rotation=90)
-            ax1.grid(axis="y", linestyle="--", alpha=0.7)
-            st.pyplot(fig1)
-
-        # Chart 2: Line chart for distance off per round
-        with chart_col2:
-            fig2, ax2 = plt.subplots()
-            ax2.plot(games_data["Round Description"], games_data["Distance Off (km)"], marker="o", color="orange", linewidth=2, alpha=0.8)
-            ax2.set_title("Distance Off per Round")
-            ax2.set_ylabel("Distance Off (km)")
-            ax2.tick_params(axis="x", rotation=90)
-            ax2.grid(axis="y", linestyle="--", alpha=0.7)
-            st.pyplot(fig2)
-
+      
         # --- DETAILED DATA ---
+
         # Display detailed round data table
         st.write("### Detailed Round Data")
         st.dataframe(
