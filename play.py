@@ -164,7 +164,7 @@ else:
         st.write(f"Distance Off This Round: {st.session_state.distance_off_this_round}")
         st.write("Guess History:")
         st.write(pd.DataFrame(st.session_state.guess_history[:4]))
-        st.write(f"Comment: {st.session_state.guess_history["comment"]}")
+        st.write(f"Comment: {st.session_state.guess_history["Comment"]}")
         if st.button("Play Again"):
             start_new_round()
             st.rerun()
@@ -178,7 +178,7 @@ else:
 
         if st.button("Submit"):
             if user_guess and not user_guess.isalpha():
-                st.error("Invalid guess. Please enter a valid string.")
+                st.error("Invalid guess. Please enter a valid word.")
             elif not user_guess:
                 st.warning("Guess cannot be empty.")
             else:
