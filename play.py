@@ -166,6 +166,7 @@ else:
         st.write("Guess History:")
         st.write(pd.DataFrame(st.session_state.guess_history))
         st.write(f"Comment: {st.session_state.guess_history[-1]["Comment"]}")
+        update_realtime_stats()
         if st.button("Play Again"):
             start_new_round()
             st.rerun()
